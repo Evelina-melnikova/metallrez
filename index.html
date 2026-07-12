@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МеталлРез — Лазерная резка металла по чертежам</title>
+<meta name="description" content="Лазерная резка металла с точностью до 0,1 мм. Расчет стоимости за 30 минут. Заказы от 1 детали.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- corner markers, fixed -->
+<div class="corner-mark tl" aria-hidden="true"></div>
+<div class="corner-mark tr" aria-hidden="true"></div>
+<div class="corner-mark bl" aria-hidden="true"></div>
+<div class="corner-mark br" aria-hidden="true"></div>
+
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">⌗</span>
+      <span class="logo-text">МЕТАЛЛ<span class="accent">РЕЗ</span></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="#services">Услуги</a>
+      <a href="#equipment">Оборудование</a>
+      <a href="#process">Процесс</a>
+      <a href="#cases">Кейсы</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#contact" class="nav-cta">Отправить чертёж</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span>ЛАЗЕРНАЯ РЕЗКА МЕТАЛЛА</p>
+        <h1>Точность до <span class="accent">0,1&nbsp;мм</span>.<br>Заказы от 1 дня.</h1>
+        <p class="hero-sub">Режем чёрную и нержавеющую сталь, алюминий. Работаем с единичными деталями и серийным производством. Присылайте чертёж — рассчитаем стоимость в течение 30 минут.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Получить расчёт стоимости</a>
+          <a href="#upload" class="btn btn-ghost">Отправить чертёж</a>
+        </div>
+        <div class="hero-specs">
+          <div class="spec"><span class="spec-val">±0.1</span><span class="spec-unit">мм</span><span class="spec-label">допуск реза</span></div>
+          <div class="spec"><span class="spec-val">30</span><span class="spec-unit">мин</span><span class="spec-label">расчёт стоимости</span></div>
+          <div class="spec"><span class="spec-val">1</span><span class="spec-unit">дет.</span><span class="spec-label">минимальный заказ</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <svg id="cut-svg" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse">
+              <path d="M 26 0 L 0 0 0 26" fill="none" stroke="rgba(200,204,209,0.08)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="520" height="520" fill="url(#grid)"/>
+          <!-- plate outline -->
+          <path id="plate-outline" d="M 90 100 L 430 100 L 430 300 L 340 300 L 340 420 L 90 420 Z" fill="rgba(255,90,31,0.04)" stroke="rgba(200,204,209,0.35)" stroke-width="1.5"/>
+          <!-- laser cut path, animated stroke -->
+          <path id="laser-path" d="M 90 100 L 430 100 L 430 300 L 340 300 L 340 420 L 90 420 Z" fill="none" stroke="#ff5a1f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000"/>
+          <circle id="laser-head" r="5" fill="#ff5a1f">
+            <animateMotion id="laser-motion" dur="4.5s" repeatCount="indefinite" path="M 90 100 L 430 100 L 430 300 L 340 300 L 340 420 L 90 420 Z"/>
+          </circle>
+          <!-- inner cutout circle -->
+          <circle cx="200" cy="230" r="42" fill="rgba(255,90,31,0.04)" stroke="rgba(200,204,209,0.35)" stroke-width="1.5"/>
+          <!-- dimension lines -->
+          <g class="dims" font-family="IBM Plex Mono, monospace" font-size="11" fill="rgba(200,204,209,0.55)">
+            <line x1="90" y1="440" x2="430" y2="440" stroke="rgba(200,204,209,0.3)" stroke-width="1"/>
+            <line x1="90" y1="434" x2="90" y2="446" stroke="rgba(200,204,209,0.3)" stroke-width="1"/>
+            <line x1="430" y1="434" x2="430" y2="446" stroke="rgba(200,204,209,0.3)" stroke-width="1"/>
+            <text x="240" y="458" text-anchor="middle">340.0 MM</text>
+
+            <line x1="460" y1="100" x2="460" y2="420" stroke="rgba(200,204,209,0.3)" stroke-width="1"/>
+            <line x1="454" y1="100" x2="466" y2="100" stroke="rgba(200,204,209,0.3)" stroke-width="1"/>
+            <line x1="454" y1="420" x2="466" y2="420" stroke="rgba(200,204,209,0.3)" stroke-width="1"/>
+            <text x="478" y="264" text-anchor="middle" transform="rotate(90 478 264)">320.0 MM</text>
+          </g>
+          <text x="200" y="234" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="rgba(200,204,209,0.5)">⌀84</text>
+        </svg>
+        <!-- <p class="visual-caption">DXF-01_bracket-plate.dxf — раскрой в реальном времени</p> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why">
+    <div class="wrap">
+      <p class="section-eyebrow">01 — почему выбирают нас</p>
+      <div class="why-grid">
+        <div class="why-item">
+          <span class="why-mark">✓</span>
+          <h3>Расчёт стоимости за 30 минут</h3>
+          <p>Присылаете чертёж — инженер считает раскрой и называет цену в тот же день.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-mark">✓</span>
+          <h3>Производство от 1 детали</h3>
+          <p>Берём в работу и опытный образец, и серию на тысячи единиц.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-mark">✓</span>
+          <h3>Работаем с DXF, DWG, STEP</h3>
+          <p>Принимаем чертежи в любом из основных форматов, без переделки под нас.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-mark">✓</span>
+          <h3>Доставка по всей стране</h3>
+          <p>Отгружаем транспортными компаниями в любой регион, упаковка под груз.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-mark">✓</span>
+          <h3>Собственный парк оборудования</h3>
+          <p>Не отдаём заказы на субподряд — весь цикл на своих станках и в своём цеху.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-mark">✓</span>
+          <h3>Контроль на каждом этапе</h3>
+          <p>Замеряем партию до отгрузки и прикладываем протокол контроля по запросу.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="wrap">
+      <p class="section-eyebrow">02 — что мы делаем</p>
+      <h2>Полный цикл металлообработки</h2>
+      <div class="services-grid">
+        <a href="#contact" class="service-card">
+          <span class="service-icon">⟡</span>
+          <h3>Лазерная резка</h3>
+          <p>Сталь до 20 мм, нержавейка до 12 мм, алюминий до 15 мм.</p>
+        </a>
+        <a href="#contact" class="service-card">
+          <span class="service-icon">⌐</span>
+          <h3>Гибка металла</h3>
+          <p>Листогибочные прессы, сложная геометрия, малые радиусы.</p>
+        </a>
+        <a href="#contact" class="service-card">
+          <span class="service-icon">⚡</span>
+          <h3>Сварка</h3>
+          <p>MIG/MAG, TIG, сборка узлов и металлоконструкций.</p>
+        </a>
+        <a href="#contact" class="service-card">
+          <span class="service-icon">◑</span>
+          <h3>Порошковая покраска</h3>
+          <p>Любые цвета по RAL, устойчивое покрытие для наружного применения.</p>
+        </a>
+        <a href="#contact" class="service-card">
+          <span class="service-icon">✎</span>
+          <h3>Проектирование</h3>
+          <p>Доработаем чертёж под раскрой, если у вас есть только эскиз.</p>
+        </a>
+        <a href="#contact" class="service-card">
+          <span class="service-icon">▦</span>
+          <h3>Серийное производство</h3>
+          <p>Постоянные поставки под график сборки вашего производства.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPMENT -->
+  <section class="equipment" id="equipment">
+    <div class="wrap">
+      <p class="section-eyebrow light">03 — оборудование</p>
+      <h2 class="light-h">На чём мы режем</h2>
+      <div class="equipment-grid">
+        <div class="eq-card">
+          <div class="eq-head">
+            <h3>Bystronic Fiber 6 кВт</h3>
+            <span class="eq-tag">волоконный лазер</span>
+          </div>
+          <ul class="eq-specs">
+            <li><span>Сталь</span><b>до 20 мм</b></li>
+            <li><span>Нержавейка</span><b>до 12 мм</b></li>
+            <li><span>Алюминий</span><b>до 15 мм</b></li>
+            <li><span>Поле раскроя</span><b>3000×1500 мм</b></li>
+          </ul>
+        </div>
+        <div class="eq-card">
+          <div class="eq-head">
+            <h3>TRUMPF TruLaser 3030</h3>
+            <span class="eq-tag">CO₂-лазер</span>
+          </div>
+          <ul class="eq-specs">
+            <li><span>Сталь</span><b>до 15 мм</b></li>
+            <li><span>Нержавейка</span><b>до 10 мм</b></li>
+            <li><span>Точность реза</span><b>±0.1 мм</b></li>
+            <li><span>Поле раскроя</span><b>3000×1500 мм</b></li>
+          </ul>
+        </div>
+        <div class="eq-card">
+          <div class="eq-head">
+            <h3>Amada HFE 3013</h3>
+            <span class="eq-tag">листогибочный пресс</span>
+          </div>
+          <ul class="eq-specs">
+            <li><span>Усилие</span><b>130 тонн</b></li>
+            <li><span>Длина гиба</span><b>3100 мм</b></li>
+            <li><span>Толщина</span><b>до 10 мм</b></li>
+            <li><span>Точность угла</span><b>±0.5°</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="wrap">
+      <p class="section-eyebrow">04 — как проходит работа</p>
+      <h2>От чертежа до отгрузки</h2>
+      <ol class="process-steps">
+        <li><span class="step-num">01</span><h3>Отправляете чертёж</h3><p>DXF, DWG, STEP или PDF — любой формат, в котором он у вас есть.</p></li>
+        <li><span class="step-num">02</span><h3>Рассчитываем стоимость</h3><p>Инженер считает раскрой и присылает цену в течение 30 минут.</p></li>
+        <li><span class="step-num">03</span><h3>Согласовываем сроки</h3><p>Фиксируем дату готовности и способ доставки.</p></li>
+        <li><span class="step-num">04</span><h3>Производим детали</h3><p>Режем, гнём, свариваем и красим — по вашему техническому заданию.</p></li>
+        <li><span class="step-num">05</span><h3>Контроль качества</h3><p>Проверяем размеры каждой партии перед упаковкой.</p></li>
+        <li><span class="step-num">06</span><h3>Доставка</h3><p>Отгружаем транспортной компанией в любой регион страны.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="cases" id="cases">
+    <div class="wrap">
+      <p class="section-eyebrow">05 — выполненные заказы</p>
+      <h2>Кейсы</h2>
+      <div class="cases-grid">
+        <article class="case-card">
+          <div class="case-top">
+            <span class="case-index">CASE / 01</span>
+          </div>
+          <h3>Детали для мебельной фабрики</h3>
+          <dl class="case-dl">
+            <div><dt>Материал</dt><dd>Сталь 3 мм</dd></div>
+            <div><dt>Количество</dt><dd>420 деталей</dd></div>
+            <div><dt>Срок</dt><dd>3 дня</dd></div>
+          </dl>
+        </article>
+        <article class="case-card">
+          <div class="case-top">
+            <span class="case-index">CASE / 02</span>
+          </div>
+          <h3>Корпус промышленного шкафа</h3>
+          <dl class="case-dl">
+            <div><dt>Материал</dt><dd>Нержавеющая сталь</dd></div>
+            <div><dt>Количество</dt><dd>65 комплектов</dd></div>
+            <div><dt>Срок</dt><dd>5 дней</dd></div>
+          </dl>
+        </article>
+        <article class="case-card">
+          <div class="case-top">
+            <span class="case-index">CASE / 03</span>
+          </div>
+          <h3>Кронштейны для вентиляции</h3>
+          <dl class="case-dl">
+            <div><dt>Материал</dt><dd>Оцинкованная сталь 2 мм</dd></div>
+            <div><dt>Количество</dt><dd>1200 деталей</dd></div>
+            <div><dt>Срок</dt><dd>4 дня</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews">
+    <div class="wrap">
+      <p class="section-eyebrow light">06 — отзывы</p>
+      <div class="reviews-grid">
+        <blockquote class="review-card">
+          <p>«Заказывали изготовление партии деталей для нашего производства. Всё выполнено точно по чертежам и в срок.»</p>
+          <cite>ООО «ПромТех»</cite>
+        </blockquote>
+        <blockquote class="review-card">
+          <p>«Работаем уже второй год. Всегда соблюдают сроки, даже при срочных заказах.»</p>
+          <cite>ООО «Вентстрой»</cite>
+        </blockquote>
+        <blockquote class="review-card">
+          <p>«Помогли доработать чертёж под раскрой — сэкономили нам и материал, и время.»</p>
+          <cite>ИП Коваленко, мебельное производство</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <p class="section-eyebrow">07 — частые вопросы</p>
+      <h2>Вопросы и ответы</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Какой минимальный заказ?</span><span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Берём в работу от 1 детали. Для мелких партий цена за штуку будет выше, чем для серии.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Работаете ли с физическими лицами?</span><span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Да, принимаем заказы и от компаний, и от частных лиц. Оплата по счёту или картой.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Можно ли без чертежа?</span><span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Можно прислать эскиз от руки, фото образца или описать размеры — наш инженер поможет подготовить чертёж под раскрой.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Какие материалы используете?</span><span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Чёрная сталь, нержавеющая сталь, оцинкованная сталь, алюминий. Толщина — от 0,5 до 20 мм в зависимости от материала.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Как быстро получим расчёт?</span><span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Обычно в течение 30 минут в рабочее время. Для сложных сборных чертежей — до 2 часов.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Делаете ли доставку?</span><span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Да, отправляем транспортными компаниями по всей стране. Стоимость доставки считаем отдельно.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA / CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap contact-inner">
+      <div class="contact-copy">
+        <p class="section-eyebrow light">08 — начать заказ</p>
+        <h2 class="light-h">Отправьте чертёж — мы рассчитаем стоимость и сроки бесплатно в течение 30 минут.</h2>
+        <p class="contact-sub">Форматы: DXF, DWG, STEP, PDF. Если чертежа нет — опишите задачу, поможем его подготовить.</p>
+      </div>
+
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <label for="name">Имя</label>
+          <input type="text" id="name" name="name" placeholder="Как к вам обращаться" required>
+        </div>
+        <div class="form-row">
+          <label for="phone">Телефон</label>
+          <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@company.ru">
+        </div>
+        <div class="form-row" id="upload">
+          <label for="file">Чертёж</label>
+          <label class="file-drop" id="file-drop" for="file">
+            <span id="file-drop-text">Перетащите файл сюда или нажмите, чтобы выбрать (DXF, DWG, STEP, PDF)</span>
+            <input type="file" id="file" name="file" accept=".dxf,.dwg,.step,.stp,.pdf">
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Получить расчёт</button>
+        <p class="form-note" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="logo-mark">⌗</span>
+      <span class="logo-text">МЕТАЛЛ<span class="accent">РЕЗ</span></span>
+    </div>
+    <div class="footer-contacts">
+      <a href="tel:+70000000000">+7 (000) 000-00-00</a>
+      <a href="mailto:info@metallrez.ru">info@metallrez.ru</a>
+      <span>Пн–Пт, 9:00–19:00</span>
+    </div>
+    <p class="footer-copy">© 2026 МеталлРез. Лазерная резка и обработка металла по чертежам.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
